@@ -1,12 +1,10 @@
+'use client';
 import Link from "next/link"
-
-
-
 
 function Card({movie}) {
   return (
     <div>
-        <Link href={`/movie/` + movie.id} className="text-decoration-none ">
+        <Link href={`/movies/` + movie.id} className="text-decoration-none ">
             <div className="card w-60">
                 <img src={`https://image.tmdb.org/t/p/w220_and_h330_face${movie.poster_path}`} alt="" className="card-img-top" />
                 <div className="card-body">

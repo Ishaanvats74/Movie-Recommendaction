@@ -8,9 +8,9 @@ export default async function HomePage() {
 
 
   return (
-    <div>
+    <div className="Container my-3">
       <h1>Top Trending Movies</h1>
-      <div className="flex flex-wrap gap-3">
+      <div className="d-flex flex-wrap gap-3">
         {movies.map(movie => {
           return <Card key={movie.id} movie={movie}> </Card>;
         })}
