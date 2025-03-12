@@ -1,12 +1,12 @@
 
 import React from "react";
 import { getMovies } from "@/utils/request";
-import SearchResults from "@/Components/searchResults";
+import SearchResults from "@/app/Components/SearchResults";
 
 
 
-async function search_page({params}) {
-   const searchText = params.query;
+async function search_page({searchParams}) {
+   const searchText = searchParams.query;
    const movies = await getMovies(searchText);
 
   return (
