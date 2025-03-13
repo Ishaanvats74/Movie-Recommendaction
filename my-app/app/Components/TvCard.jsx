@@ -1,12 +1,13 @@
+'use client';
 
 import Link from 'next/link';
-import React from 'react'
+import React from 'react';
 
-async function TvCard({tvshow}) {
+function TvCard({tvshow}) {
     
   return (
     <div>
-        <Link href={`/tv/` + tvshow.id} className="text-decoration-none ">
+        <Link href={`/tvshow/` + tvshow.id} className="text-decoration-none ">
             <div className="card w-60">
                 <img src={`https://image.tmdb.org/t/p/w220_and_h330_face${tvshow.poster_path}`} alt="" className="card-img-top" />
                 <div className="card-body">
@@ -19,4 +20,4 @@ async function TvCard({tvshow}) {
   )
 }
 
-export default TvCard;
+export default TvCard

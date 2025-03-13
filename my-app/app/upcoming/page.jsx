@@ -9,7 +9,7 @@ async function page({params}) {
   return (
     <div>
       <h2>2025 Movies</h2>
-      <div className='flex flex-wrap gap-3 ' key={upcomingMovies.id}>
+      <div className='flex flex-wrap gap-3 '>
         {upcomingMovies.map(upcoming => {
           return <ShowCard key={upcoming.id} upcoming={upcoming}/>
         })};

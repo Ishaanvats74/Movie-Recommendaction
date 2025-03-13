@@ -37,3 +37,15 @@ export const getTrendingTVShows = async () =>{
     return data.results;
 }
 
+export const getSimilarTvshow = async (id) => {
+    const res = await fetch(`${BASE_URL}/tv/${id}/similar?api_key=${API_KEY}`);
+    const data = await res.json();
+    return data.results;
+}
+
+export const getTvshowDetails = async (id) => {
+    const res = await fetch(`${BASE_URL}/tv/${id}?api_key=${API_KEY}`);
+    const data = await res.json();
+    return data;
+}
+

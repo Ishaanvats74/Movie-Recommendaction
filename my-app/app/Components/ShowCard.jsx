@@ -5,7 +5,7 @@ import Link from "next/link"
 function upcoming({upcoming}) {
   return (
     <div>
-        <Link href={`/movie/` + upcoming.id} className="text-decoration-none ">
+        <Link href={`/movies/` + upcoming.id} className="text-decoration-none ">
             <div className="card w-60">
                 <img src={`https://image.tmdb.org/t/p/w220_and_h330_face${upcoming.poster_path}`} alt="" className="card-img-top" />
                 <div className="card-body">
@@ -18,4 +18,4 @@ function upcoming({upcoming}) {
   )
 }
 
-export default upcoming;
+export default upcoming

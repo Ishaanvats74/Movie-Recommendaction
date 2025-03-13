@@ -3,6 +3,7 @@ import Card from "./Components/Card";
 import TvCard from "./Components/TvCard";
 
 
+
 export default async function HomePage() {
   const movies = await getTrendingMovies();
   const tvShows = await getTrendingTVShows();
