@@ -18,8 +18,8 @@ async function MovieDetailsPage({params}) {
             <p className="py-1 px-2 bg-warning text-white me-2 rounded">{movieDetails.original_language}</p>
             <p className="py-1 px-2 bg-warning text-white me-2 rounded">{movieDetails.status}</p>
           </div>
-          <div>
-            <p>
+          <div >
+            <p >
               {movieDetails.genres.map(genres =>{
               return (
               <span className="py-1 px-2 me-2 bg-dark text-white  rounded" key={genres.id}>
@@ -33,19 +33,19 @@ async function MovieDetailsPage({params}) {
         </div>
       </div>
         {/* similar movies */}
-        <div className="my-5">
-        <h2>Similar Movies</h2>
-        <div className="flex flex-wrap gap-3">
+        <div className="my-8">
+        <h1>Similar Movies</h1>
+        <div className="flex flex-wrap gap-3 mx-2" >
           {similarMovies.map((movie) => {
             return ( 
-              <>
-                <div key={movie.id}>
+              
+                <div key={movie.id} >
                   <img  src={`https://image.tmdb.org/t/p/w220_and_h330_face${movie.poster_path}`}  className=""/>
                   <div className="card-body">
-                        <h5 className="card-title">{movie.title}</h5>
+                        <h5 className="card-title w-54">{movie.title}</h5>
                   </div>
                 </div>
-              </>
+              
             )})};
         </div>
       </div>

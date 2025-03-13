@@ -45,7 +45,7 @@ function searchResults({searchText , movies}) {
             </select>
             </div>  
         </div>
-        <div className="flex flex-wrap gap-3">
+        <div className="flex flex-wrap gap-3" key={movies.id}>
           {filteredMovies.map((movie) => {
             return <Card key={movie.id} movie={movie}/>
           })}
