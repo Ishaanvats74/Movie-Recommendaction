@@ -3,12 +3,13 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
-    "build": "next build",
+    "clean": "rm -rf .next",
     "start": "next start",
-    "lint": "next lint"
+    "build": "next build",
+    "dev": "next dev"
   },
   "dependencies": {
+    "@clerk/nextjs": "^6.12.5",
     "@heroui/button": "^2.2.16",
     "@heroui/system": "^2.4.12",
     "@heroui/theme": "^2.4.12",

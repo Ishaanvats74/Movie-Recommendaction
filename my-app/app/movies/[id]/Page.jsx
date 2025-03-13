@@ -1,4 +1,5 @@
 import { getMoviesDetails, getSimilarMovies } from "@/utils/request";
+import Link from "next/link";
 import React from "react";
 
 async function MovieDetailsPage({params}) {
@@ -38,14 +39,14 @@ async function MovieDetailsPage({params}) {
         <div className="flex flex-wrap gap-3 mx-2" >
           {similarMovies.map((movie) => {
             return ( 
-              <>
+              <Link href={`/movies/${movie.id}`} key={movie.id}>
                 <div key={movie.id} >
                   <img  src={`https://image.tmdb.org/t/p/w220_and_h330_face${movie.poster_path}`}  className=""/>
                   <div className="card-body">
                         <h5 className="card-title w-54">{movie.title}</h5>
                   </div>
                 </div>
-              </>
+              </Link>
             )})};
         </div>
       </div>

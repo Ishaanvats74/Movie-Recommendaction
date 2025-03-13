@@ -1,4 +1,5 @@
 import { getSimilarTvshow, getTvshowDetails } from '@/utils/request';
+import Link from 'next/link';
 import React from 'react'
 
 async function TvshowDeatils({params}) {
@@ -19,7 +20,7 @@ async function TvshowDeatils({params}) {
                 <p className="py-1 px-2 bg-warning text-white me-2 rounded">{tvshowDetails.status}</p>
                 </div>
                 <div>
-                    <p>
+                    <p key={tvshowDetails.id}>
                         {tvshowDetails.genres.map(genres =>{
                         return <span className="py-1 px-2 me-2 bg-dark text-white  rounded" key={genres.id} >{genres.name}</span>
                         })}
@@ -35,14 +36,14 @@ async function TvshowDeatils({params}) {
         <div className="flex flex-wrap gap-3 mx-2" >
           {similarTvshows.map((tvshow) => {
             return ( 
-              <>
+              <Link href={`/tvshow/${tvshow.id}`} key={tvshow.id}>
                 <div key={tvshow.id} >
                   <img  src={`https://image.tmdb.org/t/p/w220_and_h330_face${tvshow.poster_path}`}  className=""/>
                   <div className="card-body">
                         <h5 className="card-title w-54">{tvshow.name}</h5>
                   </div>
                 </div>
-              </>
+              </Link>
             )})};
         </div>
       </div>
