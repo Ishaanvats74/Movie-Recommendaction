@@ -1,10 +1,11 @@
 import { getMoviesDetails, getSimilarMovies } from "@/utils/request";
 import Link from "next/link";
-import React from "react";
+import React, { use } from "react";
 
 async function MovieDetailsPage({params}) {
-  const movieDetails = await getMoviesDetails(params.id);
-  const similarMovies = await getSimilarMovies(params.id);
+  const { id } = use(params)
+  const movieDetails = await getMoviesDetails(id);
+  const similarMovies = await getSimilarMovies(id);
   
   return (
     <div className="my-4 mx-3">
