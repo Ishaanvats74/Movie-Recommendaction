@@ -6,7 +6,7 @@ import SearchResults from "@/app/Components/SearchResults";
 
 
 async function search_page({searchParams}) {
-   const searchText = searchParams.query;
+   const searchText = await searchParams.query;
    const movies = await getMovies(searchText);
 
   return (

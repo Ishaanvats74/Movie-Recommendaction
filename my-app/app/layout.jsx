@@ -1,6 +1,4 @@
 import 'bootstrap/dist/css/bootstrap.css';
-import {
-  ClerkProvider,} from '@clerk/nextjs'
 import { Geist, Geist_Mono } from 'next/font/google'
 import './globals.css'
 import Header from './Components/Header'
@@ -25,7 +23,7 @@ export default function RootLayout({
   children,
 }) {
   return (
-    <ClerkProvider>
+    
       <html lang="en">
         <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
           <Header />
@@ -34,6 +32,6 @@ export default function RootLayout({
             </main>
         </body>
       </html>
-    </ClerkProvider>
+    
   )
 }

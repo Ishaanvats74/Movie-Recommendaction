@@ -40,10 +40,10 @@ async function MovieDetailsPage({params}) {
           {similarMovies.map((movie) => {
             return ( 
               <Link href={`/movies/${movie.id}`} key={movie.id}>
-                <div key={movie.id} >
+                <div key={movie.id} className="card">
                   <img  src={`https://image.tmdb.org/t/p/w220_and_h330_face${movie.poster_path}`}  className=""/>
                   <div className="card-body">
-                        <h5 className="card-title w-54">{movie.title}</h5>
+                        <h5 className="card-title w-54 ">{movie.title}</h5>
                   </div>
                 </div>
               </Link>
