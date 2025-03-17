@@ -4,6 +4,7 @@ import './globals.css'
 import Header from './Components/Header'
 
 
+
 const geistSans = Geist({
   variable: '--font-geist-sans',
   subsets: ['latin'],
@@ -28,7 +29,7 @@ export default function RootLayout({
         <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
           <Header />
             <main>
-              {children}
+                {children}
             </main>
         </body>
       </html>

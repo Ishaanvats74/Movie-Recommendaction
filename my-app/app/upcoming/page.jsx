@@ -4,7 +4,7 @@ import ShowCard from '@/app/Components/ShowCard';
 
 
 async function page({params}) {
-  const { id } = await params
+  const { id } = await params;
   const upcomingMovies = await getUpcomingMovies({id});
   
   return (

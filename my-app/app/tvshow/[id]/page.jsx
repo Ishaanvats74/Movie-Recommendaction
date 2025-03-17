@@ -1,10 +1,11 @@
 import { getSimilarTvshow, getTvshowDetails } from '@/utils/request';
 import Link from 'next/link';
-import React from 'react'
+
 
 async function TvshowDeatils({params}) {
-    const similarTvshows = await getSimilarTvshow(params.id);
-    const tvshowDetails = await getTvshowDetails(params.id);
+  const { id } = await params
+  const similarTvshows = await getSimilarTvshow(id);
+  const tvshowDetails = await getTvshowDetails(id);
 
   return (
     <div className="my-4 mx-3">

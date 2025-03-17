@@ -1,9 +1,10 @@
+
 import { getSimilarTvshow, getTvshowDetails } from '@/utils/request';
 import Link from 'next/link';
-import React, { use } from 'react'
+import React from 'react';
 
 async function TvshowDeatils({params}) {
-  const { id } = use(params)
+  const { id } = await params
     const similarTvshows = await getSimilarTvshow(id);
     const tvshowDetails = await getTvshowDetails(id);
 
