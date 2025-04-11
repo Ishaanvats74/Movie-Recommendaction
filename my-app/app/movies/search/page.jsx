@@ -10,11 +10,8 @@ async function search_page({searchParams}) {
    const searchText = TextParams.query;
    const movies = await getMovies(searchText);
 
-  return (
-    <>
-    <SearchResults searchText={searchText} movies={movies}/>
-    </>
-  )
+  return <SearchResults searchText={searchText} movies={movies}/>
+  
 };
 
 export default search_page

@@ -22,11 +22,11 @@ async function TvshowDeatils({params}) {
                 <p className="py-1 px-2 bg-warning text-white me-2 rounded">{tvshowDetails.status}</p>
                 </div>
                 <div>
-                    <p key={tvshowDetails.id}>
+                    <div key={tvshowDetails.id}>
                         {tvshowDetails.genres.map(genres =>{
                         return <span className="py-1 px-2 me-2 bg-dark text-white  rounded" key={genres.id} >{genres.name}</span>
                         })}
-                    </p>
+                    </div>
                 </div>
                 <p>{tvshowDetails.overview}</p>
             </div>
