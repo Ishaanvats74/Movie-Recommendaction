@@ -10,7 +10,7 @@ function Card({movie}) {
                 <img src={`https://image.tmdb.org/t/p/w220_and_h330_face${movie.poster_path}`} alt="" className="card-img-top w-full object-cover" />
                 <div className="card-body ">
                     <h5 className="card-title font-bold text-lg mb-2">{movie.title}</h5>
-                    <p className="card-text overflow-y-auto h-40 scrollbar-hide flex-grow" style={{maxHeight: "150px"}}>{movie.overview}</p>
+                    <p className="card-text overflow-y-auto h-40 scrollbar-hide flex-grow bottom-0" style={{maxHeight: "150px"}}>{movie.overview}</p>
                 </div>
             </div>
         </Link>

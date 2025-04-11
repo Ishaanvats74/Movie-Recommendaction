@@ -35,7 +35,7 @@ async function TvshowDeatils({params}) {
              {/* similar tvshows */}
         <div className="my-8">
         <h1>Similar tvshows</h1>
-        <div className="flex flex-wrap gap-3 mx-2" >
+        <div className="flex flex-wrap gap-3 mx-2" key={similarTvshows.id}>
           {similarTvshows.map((tvshow) => {
             return ( 
               <Link href={`/tvshow/${tvshow.id}`} key={tvshow.id}>

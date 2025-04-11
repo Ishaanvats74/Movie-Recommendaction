@@ -40,7 +40,7 @@ async function MovieDetailsPage({params}) {
             <div className="grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-4 xl:grid-cols-6 space-y-5" key={movieDetails.id}>
               {similarMovies.map((movie) => {
                 return ( 
-                  <div className="h-full">
+                  <div className="h-full" key={movie.id}>
                   <Link href={`/movies/${movie.id}`} key={movie.id} className="text-decoration-none h-full">
                     <div key={movie.id} className="card w-60 h-full flex flex-col">
                       <img  src={`https://image.tmdb.org/t/p/w220_and_h330_face${movie.poster_path}`}  className="card-img-top w-full object-cover"/>
