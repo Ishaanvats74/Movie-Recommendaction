@@ -22,7 +22,7 @@ function Header() {
       <nav className="fixed top-0 w-full bg-black/80 backdrop-blur-md z-50 border-b h-20">
         <div className="flex justify-between container-fluid mx-auto px-4 h-full items-center">
           <div className=" flex space-x-6 text-2xl ">
-          <Link href="/" className="text-white btn btn-outline-success">Allepy</Link>
+          <Link href="/" className="text-white btn btn-outline-success ">Allepy</Link>
           <a href="/upcoming" className="text-white  btn btn-outline-success">Upcoming</a>
           </div>
           <form  role="search" onSubmit={e => handleSubmit(e)} className="flex">

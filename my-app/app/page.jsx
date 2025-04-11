@@ -12,7 +12,7 @@ export default async function HomePage() {
     <div>
       <div className="Container my-3">
         <p className="text-white text-5xl mb-4">Top Trending Movies</p>
-        <div className="grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-4 xl:grid-cols-6 space-y-5" key={movies.id}>
+        <div className="grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-4 xl:grid-cols-6 space-y-5 " key={movies.id}>
           {movies.map(movie => {
             return <Card key={movie.id} movie={movie} /> ;
           })}
