@@ -15,7 +15,7 @@
     "@heroui/theme": "^2.4.12",
     "bootstrap": "^5.3.3",
     "framer-motion": "^12.4.10",
-    "next": "15.2.1",
+    "next": "15.2.8",
     "postcss": "^8.5.3",
     "react": "^19.0.0",
     "react-dom": "^19.0.0"
