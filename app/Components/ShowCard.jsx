@@ -1,5 +1,4 @@
 'use client';
-
 import Link from "next/link"
 
 function upcoming({upcoming}) {
@@ -15,7 +14,6 @@ function upcoming({upcoming}) {
             </div>
         </Link>
     </div>
-  )
-}
+  )};
 
-export default upcoming
+export default upcoming;
