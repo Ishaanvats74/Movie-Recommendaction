@@ -5,7 +5,9 @@ import React from "react";
 async function MovieDetailsPage({params}) {
   const { id } = await params;
   const movieDetails = await getMoviesDetails(id);
-  const similarMovies = await getSimilarMovies(id);
+  const title = movieDetails.title;
+  console.log(title)
+  const similarMovies = await getSimilarMovies(title);
   
   return (
       <div className="my-4 mx-3">
@@ -35,7 +37,7 @@ async function MovieDetailsPage({params}) {
           </div>
         </div>
           {/* similar movies */}
-          <div className="my-10 h-full">
+          {/* <div className="my-10 h-full">
             <p className="text-5xl text-white">Similar Movies</p>
             <div className="grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-4 xl:grid-cols-6 space-y-5" key={movieDetails.id}>
               {similarMovies.map((movie) => {
@@ -53,7 +55,7 @@ async function MovieDetailsPage({params}) {
                   </div>
               )})};
             </div>
-        </div>
+        </div> */}
       </div>
   );
 };

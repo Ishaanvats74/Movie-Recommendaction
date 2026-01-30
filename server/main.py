@@ -1,75 +1,96 @@
+from typing import Union
 import os
-import pickle
-from typing import Optional, List, Dict, Any, Tuple
-
+from fastapi import FastAPI
+import requests
+from dotenv import load_dotenv
+import joblib
 import numpy as np
 import pandas as pd
-import httpx
-from fastapi import FastAPI, HTTPException, Query
-from fastapi.middleware.cors import CORSMiddleware
-from pydantic import BaseModel
-from dotenv import load_dotenv
+from sklearn.metrics.pairwise import cosine_similarity
 
 load_dotenv()
 TMDB_API_KEY = os.getenv("TMDB_API_KEY")
 TMDB_BASE_URL = os.getenv("TMDB_BASE_URL")
-TMDB_IMG_500 = os.getenv("TMDB_IMG_500")
+
+df = pd.read_pickle("df.pkl")
+tfidf_matrix = joblib.load("tfidf_matrix.pkl")
+indices = joblib.load("indices.pkl")
 
 
-if not TMDB_API_KEY:
-    raise RuntimeError("TMDB_API_KEY missing. Put it in .env as TMDB_API_KEY=xxxx")
+app = FastAPI()
 
 
-app = FastAPI(title='Movie Recommender API')
-
-app.add_middleware(
-    CORSMiddleware,
-    allow_origins=["*"],
-    allow_credentials=True,
-    allow_methods=["*"],
-    allow_headers=["*"],
-)
-
-BASE_DIR = os.path.dirname(os.path.abspath(__file__))
-
-DF_PATH = os.path.join(BASE_DIR,"df.pkl")
-INDICES_PATH = os.path.join(BASE_DIR,"indices.pkl")
-TFIDF_MATRIX_PATH = os.path.join(BASE_DIR,"tfidf_matrix.pkl")
-TFIDF_PATH = os.path.join(BASE_DIR,"tfidf.pkl")
-
-df: Optional[pd.DataFrame] = None
-indices_obj: Any = None
-tfidf_matrix: Any = None
-tfidf_obj: Any = None
-
-TITLE_TO_IDX: Optional[Dict[str,int]] = None
+@app.get("/")
+def read_root():
+    return {"Hello": "World"}
 
 
+@app.get("/movie")
+def read_item():
+    url = f"https://api.themoviedb.org/3/trending/movie/day?api_key=6c1567830d5d0641e7bde29158ffc22d"
+    headers = {"accept": "application/json"}
+    response = requests.get(url,headers=headers)    
+    return response.json()
 
-class TMDBMovieCard(BaseModel):
-    tmdb_id:int
-    title:str
-    poster_url: Optional[str] = None
-    release_date: Optional[str] = None
-    vote_average: Optional[float] = None
+@app.get("/detail/{id}")
+def read_item(id:int):
+    url = f"https://api.themoviedb.org/3/movie/{id}?api_key=6c1567830d5d0641e7bde29158ffc22d"
+    headers = {"accept": "application/json"}
+    response = requests.get(url,headers=headers)
+    response = response.json()    
+    return response
 
-class TMDBMovieDetails(BaseModel):
-    tmdb_id:int
-    title:str
-    overview: Optional[str] = None
-    poster_url: Optional[str] = None
-    backdrop_url: Optional[str] = None
-    release_date: Optional[str] = None
-    genres: List[dict] = None
 
-class TFIDFRecItem(BaseModel):
-    title: str
-    score: float
-    tmdb: Optional[TMDBMovieCard] = None
+@app.get("/recommend_live/{movie_id}")
+def recommend_live(movie_id: int, n: int = 10):
 
-class SearchBundleResponse(BaseModel):
-    query: str
-    movie_details: TMDBMovieDetails
-    tfidf_recommendations: List[TFIDFRecItem]
-    genre_recommendations: List[TMDBMovieCard]
+    # 1️⃣ Get selected movie
+    movie_url = f"{TMDB_BASE_URL}/movie/{movie_id}?api_key={TMDB_API_KEY}"
+    movie_data = requests.get(movie_url).json()
+
+    if "overview" not in movie_data:
+        return {"error": "Movie not found"}
+
+    selected_text = build_text(movie_data)
+
+    # 2️⃣ Get candidate movies (example: popular movies page 1-3)
+    candidates = []
+
+    for page in range(1, 4):
+        url = f"{TMDB_BASE_URL}/movie/popular?api_key={TMDB_API_KEY}&page={page}"
+        data = requests.get(url).json()
+        candidates.extend(data["results"])
+
+    # 3️⃣ Build text corpus
+    texts = [selected_text]
+    movie_ids = []
+
+    for movie in candidates:
+        movie_ids.append(movie["id"])
+        detail_url = f"{TMDB_BASE_URL}/movie/{movie['id']}?api_key={TMDB_API_KEY}"
+        detail = requests.get(detail_url).json()
+        texts.append(build_text(detail))
+
+    # 4️⃣ Vectorize on the fly
+    from sklearn.feature_extraction.text import TfidfVectorizer
+    from sklearn.metrics.pairwise import cosine_similarity
+
+    vectorizer = TfidfVectorizer(stop_words='english')
+    tfidf = vectorizer.fit_transform(texts)
+
+    sim_scores = cosine_similarity(tfidf[0], tfidf[1:]).flatten()
+
+    similar_idx = sim_scores.argsort()[::-1][:n]
+
+    recommended_ids = [movie_ids[i] for i in similar_idx]
+
+    return {"recommendations": recommended_ids}
+
+def build_text(movie):
+    overview = movie.get("overview", "")
+    tagline = movie.get("tagline", "")
+    genres = " ".join([g['name'] for g in movie.get("genres", [])])
+    return f"{overview} {genres} {tagline}"
+
+
 
